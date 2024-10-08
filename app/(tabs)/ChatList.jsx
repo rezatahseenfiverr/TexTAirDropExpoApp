@@ -1,10 +1,11 @@
+// ChatList.js
 import React from 'react';
-import { FlatList, Image, TouchableOpacity,Text,View } from 'react-native';
+import { FlatList, Image, TouchableOpacity, Text, View } from 'react-native';
 import dayjs from 'dayjs';
- // Optional: Using NativeBase for Text and View with NativeWind
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 // Sample chat data
 const chatData = [
@@ -27,13 +28,15 @@ const chatData = [
   // Add more chat items as needed
 ];
 
+
+
 const ChatList = () => {
   const navigation = useNavigation();
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
       className="flex-row items-center p-4 border-b border-gray-200"
-      onPress={() => navigation.navigate({name:"(inbox)/Inbox"})}
+      onPress={() => navigation.navigate('(inbox)/Inbox', { chat: item })}
     >
       <Image
         source={{ uri: item.avatar }}
@@ -59,13 +62,14 @@ const ChatList = () => {
   );
 
   return (
-    <SafeAreaView>
-        <FlatList
-      data={chatData}
-      keyExtractor={(item) => item.id}
-      renderItem={renderItem}
-      contentContainerStyle="py-2"
-    />
+    <SafeAreaView className="flex-1 bg-white">
+      <FlatList
+        data={chatData}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        contentContainerStyle={{ paddingVertical: 8 }}
+        className="w-full h-full"
+      />
     </SafeAreaView>
   );
 };
